@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/FullContact"
+        android:title="Full Contact"/>
+    <item android:id="@+id/savedJobs"
+        android:title="Saved Jobs"/>
+    <item android:id="@+id/youtubeTips"
+        android:title="InterviewTips"/>
+
+</menu>
