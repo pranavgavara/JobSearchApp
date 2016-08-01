@@ -1,4 +1,13 @@
 apply plugin: 'com.android.application'
+repositories {
+    maven {
+        url "http://dl.bintray.com/content/fullcontact/fullcontact-oss"
+    }
+}
+
+dependencies {
+    compile group: "com.fullcontact", name: "fullcontact4j", version: "2.0"
+}
 
 android {
     compileSdkVersion 24
