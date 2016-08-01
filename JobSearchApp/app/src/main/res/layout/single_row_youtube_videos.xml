@@ -13,5 +13,5 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Youtube Title"
-        android:id="@+id/textView2" />
+        android:id="@+id/TitletextView" />
 </LinearLayout>
