@@ -55,25 +55,8 @@ public class JobSearchActivity extends AppCompatActivity implements GoogleApiCli
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.FullContact:
-                Intent ContactIntent = new Intent(this, FullContactActivity.class);
-                startActivity(ContactIntent);
-                break;
-            case R.id.savedJobs:
-                Intent SavedJobsIntent = new Intent(this, SavedJobsActivity.class);
-                startActivity(SavedJobsIntent);
-                break;
-            case R.id.youtubeTips:
-                Intent YoutubeIntent = new Intent(this, InterviewTipsActivity.class);
-                startActivity(YoutubeIntent);
-                break;
+//        return super.onOptionsItemSelected(item);
 
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
 
     public void search(View view) {
@@ -139,9 +122,7 @@ public class JobSearchActivity extends AppCompatActivity implements GoogleApiCli
                 e.printStackTrace();
             }
         }
-<<<<<<< HEAD
-          }
-=======
+
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -163,7 +144,6 @@ public class JobSearchActivity extends AppCompatActivity implements GoogleApiCli
         }
         return super.onOptionsItemSelected(item);
     }
->>>>>>> c05e294f00edc7b925a96ea655e604c01b0a58ba
 }
 
 

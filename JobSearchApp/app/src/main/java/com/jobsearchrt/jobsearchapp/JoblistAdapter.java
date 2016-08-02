@@ -7,10 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.google.android.gms.identity.intents.Address;
-
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 /**
  * Created by suman on 8/1/2016.

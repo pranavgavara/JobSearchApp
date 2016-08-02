@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jobsearchrt.jobsearchapp">
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-<<<<<<< HEAD
 
-=======
->>>>>>> c05e294f00edc7b925a96ea655e604c01b0a58ba
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -25,7 +22,8 @@
         <activity android:name=".FullContactActivity" />
         <activity android:name=".SavedJobsActivity" />
         <activity android:name=".InterviewTipsActivity" />
-        <activity android:name=".JobsListActivity"></activity>
+        <activity android:name=".JobsListActivity" />
+        <activity android:name=".JobdetailsActivity"></activity>
     </application>
 
 </manifest>
