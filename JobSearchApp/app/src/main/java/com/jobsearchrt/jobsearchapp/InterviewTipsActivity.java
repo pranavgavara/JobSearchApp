@@ -133,19 +133,16 @@ public class InterviewTipsActivity extends AppCompatActivity implements AdapterV
             return row;
         }
     }
-    private ListView.OnItemClickListener onClickListener= new ListView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            Intent intent=new Intent(InterviewTipsActivity.this,YouTubePlayerActivity.class);
+    private ListView.OnItemClickListener onClickListener= new ListView.OnItemClickListener() {
 
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            singleRow result = resultsrow.get(i);
+            Intent intent = new Intent(InterviewTipsActivity.this, YouTubePlayerActivity.class);
+            intent.putExtra("result",result);
             startActivity(intent);
 
         }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {
-
-        }
-    }
+    };
 
 }

@@ -1,6 +1,8 @@
 package com.jobsearchrt.jobsearchapp;
 
 import android.os.AsyncTask;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -19,56 +21,44 @@ import java.util.ArrayList;
 /**
  * Created by Pranav on 8/2/2016.
  */
-public class singleRow{
+public class singleRow implements Parcelable {
     String thumbnail;
     String VideoTitle;
     String videoID;
-    singleRow(String img,String title,String id){
+    public singleRow(String img,String title,String id){
         this.thumbnail=img;
         this.VideoTitle=title;
         this.videoID=id;
     }
-}
-class YoutubeListDownloader extends AsyncTask<String,Void,ArrayList<singleRow>> {
-    ArrayList<singleRow> resultVideos=new ArrayList<singleRow>();
+
+    protected singleRow(Parcel in) {
+        thumbnail = in.readString();
+        VideoTitle = in.readString();
+        videoID = in.readString();
+    }
+
     @Override
-    protected ArrayList<singleRow> doInBackground(String... url) {
-        String apiUrl="interview%20tips%20for%20"+url[0];
-//        Log.d("YoutubeListDownloader1", "doInBackground1: "+apiUrl);
-        String YoutubeAPIURL="https://www.googleapis.com/youtube/v3/search?part=snippet,id&q="+apiUrl+"&maxResults=50&type=video&key=AIzaSyBnwD7oP-j38RUdYTQuV0C3rcE4_MHXNac";
-        try {
-            URL youtubeapiURL=new URL(YoutubeAPIURL);
-            BufferedReader br=new BufferedReader(new InputStreamReader(youtubeapiURL.openConnection().getInputStream(),"UTF-8"));
-            StringBuilder stringBuilder=new StringBuilder();
-            String videolines;
-            while ((videolines=br.readLine())!=null){
-                stringBuilder.append(videolines);
-            }
-            JSONObject youtubeObject=new JSONObject(stringBuilder.toString());
-            JSONArray videoArray=youtubeObject.getJSONArray("items");
-            for(int i=0;i<50;i++){
-                JSONObject eachVideoobject=videoArray.getJSONObject(i);
-                String id=eachVideoobject.getJSONObject("id").getString("videoId");
-                String videoTitle=eachVideoobject.getJSONObject("snippet").getString("title");
-                String thumbnails=eachVideoobject.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("default").getString("url");
-                resultVideos.add(new singleRow(thumbnails,videoTitle,id));
-            }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(thumbnail);
+        dest.writeString(VideoTitle);
+        dest.writeString(videoID);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<singleRow> CREATOR = new Parcelable.Creator<singleRow>() {
+        @Override
+        public singleRow createFromParcel(Parcel in) {
+            return new singleRow(in);
         }
-        return resultVideos;
-    }
-    @Override
-    protected void onPostExecute(ArrayList<singleRow> singleRows) {
-        super.onPostExecute(singleRows);
-//        InterviewTipsActivity.resultsrow=singleRows;
-//        Log.d("YoutubeListDownloader1", "doInBackground2: ");
-//        Toast.makeText(InterviewTipsActivity.this,searchElement,Toast.LENGTH_LONG).show();
-    }
+
+        @Override
+        public singleRow[] newArray(int size) {
+            return new singleRow[size];
+        }
+    };
 }
