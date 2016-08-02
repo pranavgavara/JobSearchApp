@@ -1,6 +1,7 @@
 package com.jobsearchrt.jobsearchapp;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,8 +11,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,6 +36,8 @@ public class InterviewTipsActivity extends AppCompatActivity implements AdapterV
     String[] spinnerElements={"","java","android","ios","software developer"};
     String searchElement;
     ArrayList<singleRow> resultsrow;
+    public static Bitmap row_thumbnails;
+//    TextView myVideoTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +78,7 @@ public class InterviewTipsActivity extends AppCompatActivity implements AdapterV
         @Override
         protected ArrayList<singleRow> doInBackground(String... url) {
             String apiUrl=url[0];
-            String YoutubeAPIURL="https://www.googleapis.com/youtube/v3/search?part=snippet,id&q=interview tips for "+ apiUrl+"&maxResults=50&type=video&key=AIzaSyBnwD7oP-j38RUdYTQuV0C3rcE4_MHXNac";
+            String YoutubeAPIURL="https://www.googleapis.com/youtube/v3/search?part=snippet,id&q=interview tips for "+ apiUrl+"&maxResults=5&type=video&key=AIzaSyBnwD7oP-j38RUdYTQuV0C3rcE4_MHXNac";
             try {
                 URL youtubeapiURL=new URL(YoutubeAPIURL);
                 BufferedReader br=new BufferedReader(new InputStreamReader(youtubeapiURL.openConnection().getInputStream(),"UTF-8"));
@@ -83,12 +89,13 @@ public class InterviewTipsActivity extends AppCompatActivity implements AdapterV
                 }
                 JSONObject youtubeObject=new JSONObject(stringBuilder.toString());
                 JSONArray videoArray=youtubeObject.getJSONArray("items");
-                for(int i=0;i<50;i++){
+                for(int i=0;i<5;i++){
                     JSONObject eachVideoobject=videoArray.getJSONObject(i);
                     String id=eachVideoobject.getJSONObject("id").getString("videoId");
                     String videoTitle=eachVideoobject.getJSONObject("snippet").getString("title");
                     String thumbnails=eachVideoobject.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("default").getString("url");
                     resultsrow.add(new singleRow(thumbnails,videoTitle,id));
+                    System.out.println("videoTitle"+videoTitle);
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -106,6 +113,10 @@ public class InterviewTipsActivity extends AppCompatActivity implements AdapterV
         protected void onPostExecute(ArrayList<singleRow> singleRows) {
             super.onPostExecute(singleRows);
             youTubeList.setAdapter(new TheAdapter(InterviewTipsActivity.this));
+            for(int h=0;h<singleRows.size();h++){
+                System.out.println("ghello"+singleRows.get(h).VideoTitle);
+            }
+            Toast.makeText(InterviewTipsActivity.this,searchElement,Toast.LENGTH_LONG).show();
         }
     }
     class singleRow{
@@ -144,11 +155,54 @@ public class InterviewTipsActivity extends AppCompatActivity implements AdapterV
         public View getView(int i, View view, ViewGroup viewGroup) {
             LayoutInflater inflater= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View row=inflater.inflate(R.layout.single_row_youtube_videos,viewGroup,false);
-
-
-
-
-            return null;
+            ImageView myThumbnail= (ImageView) row.findViewById(R.id.thumbview);
+            TextView myVideoTitle= (TextView) row.findViewById(R.id.TitletextView);
+            singleRow temp=resultsrow.get(i);
+            ThumbnailDownloader thumbnailDownloader=new ThumbnailDownloader();
+            thumbnailDownloader.execute(temp.thumbnail);
+            myThumbnail.setImageBitmap(row_thumbnails);
+            myVideoTitle.setText(temp.VideoTitle);
+            return row;
         }
     }
+//       public class MyViewHolder{
+//            ImageView myImage;
+//            TextView myTitle;
+//            MyViewHolder(View v){
+//                myImage= (ImageView) v.findViewById(R.id.thumbview);
+//                myTitle= (TextView) v.findViewById(R.id.TitletextView);
+//            }
+//        }
+//    class MyAdapter extends ArrayAdapter<String> {
+//        Context context;
+//
+//        public MyAdapter(Context c){
+//            super(c,R.layout.single_row_youtube_videos);
+//            this.context=c;
+//        }
+//
+//        @Override
+//        public View getView(int position, View convertView, ViewGroup parent) {
+//
+//            View row=convertView;
+//            MyViewHolder holder=null;
+//            if(row==null) {
+//                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//                row = inflater.inflate(R.layout.single_row_youtube_videos, parent, false);
+//                holder=new MyViewHolder(row);
+//                row.setTag(holder);
+//            }else{
+//                holder= (MyViewHolder) row.getTag();
+//            }
+//
+//            singleRow temp=resultsrow.get(position);
+//            ThumbnailDownloader thumbnailDownloader=new ThumbnailDownloader();
+//            thumbnailDownloader.execute(temp.thumbnail);
+//            holder.myImage.setImageBitmap(row_thumbnails);
+//            holder.myTitle.setText(temp.VideoTitle);
+//
+//            return row;
+//        }
+//    }
+
 }
