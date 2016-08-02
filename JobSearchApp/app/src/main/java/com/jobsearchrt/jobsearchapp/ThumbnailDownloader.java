@@ -3,6 +3,8 @@ package com.jobsearchrt.jobsearchapp;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,6 +30,7 @@ public class ThumbnailDownloader extends AsyncTask<String,Void,Bitmap> {
     protected void onPostExecute(Bitmap bitmap) {
         super.onPostExecute(bitmap);
 //        InterviewTipsActivity.myThumbnail.setImageBitmap(bitmap);
-        InterviewTipsActivity.row_thumbnails=bitmap;
+//        InterviewTipsActivity.row_thumbnails=bitmap;
+//        Log.d("YoutubeListDownloader", "doInBackground: thumbnaildownload");
     }
 }
