@@ -40,7 +40,6 @@ public class JobSearchActivity extends AppCompatActivity implements GoogleApiCli
     LocationRequest mlocationRequest;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +55,33 @@ public class JobSearchActivity extends AppCompatActivity implements GoogleApiCli
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.FullContact:
+                Intent ContactIntent = new Intent(this, FullContactActivity.class);
+                startActivity(ContactIntent);
+                break;
+            case R.id.savedJobs:
+                Intent SavedJobsIntent = new Intent(this, SavedJobsActivity.class);
+                startActivity(SavedJobsIntent);
+                break;
+            case R.id.youtubeTips:
+                Intent YoutubeIntent = new Intent(this, InterviewTipsActivity.class);
+                startActivity(YoutubeIntent);
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     public void search(View view) {
+        Intent intent =new Intent(this, JobsListActivity.class);
+        intent.putExtra("searchTerm",searchTerm.getText().toString());
+        intent.putExtra("zipcode",zipcode.getText().toString());
+        startActivity(intent);
+
     }
 
     public void getCurrentLocation(View view) {
@@ -102,41 +126,18 @@ public class JobSearchActivity extends AppCompatActivity implements GoogleApiCli
 
     @Override
     public void onLocationChanged(Location location) {
-        if(location == null){
-            Toast.makeText(this,"Unable to find current Location",Toast.LENGTH_LONG).show();
-        }
-        else {
+        if (location == null) {
+            Toast.makeText(this, "Unable to find current Location", Toast.LENGTH_LONG).show();
+        } else {
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
             try {
-                List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
-                android.location.Address address =addresses.get(0);
+                List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                android.location.Address address = addresses.get(0);
                 zipcode.setText(address.getPostalCode());
-                LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApi,this);
+                LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApi, this);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id=item.getItemId();
-        switch(id){
-            case R.id.FullContact:
-                Intent ContactIntent=new Intent(this,FullContactActivity.class);
-                startActivity(ContactIntent);
-                break;
-            case R.id.savedJobs:
-                Intent SavedJobsIntent=new Intent(this,SavedJobsActivity.class);
-                startActivity(SavedJobsIntent);
-                break;
-            case R.id.youtubeTips:
-                Intent YoutubeIntent=new Intent(this,InterviewTipsActivity.class);
-                startActivity(YoutubeIntent);
-                break;
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
+          }
 }
