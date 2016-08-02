@@ -37,7 +37,8 @@ public class InterviewTipsActivity extends AppCompatActivity implements AdapterV
 
     ListView youTubeList;
     Spinner OptionSpinner;
-    String[] spinnerElements={"","java","android","ios","software developer"};
+    String[] spinnerElements_display={"technical jobs","java","android","ios","software developer","big data","Hadoop","Web development"};
+    String[] spinnerElements={"technical%20jobs","java","android","ios","software%20developer","big%20data","Hadoop","Web%20development"};
     String searchElement;
     ArrayList<singleRow> resultsrow;
     Bitmap row_thumbnails;
@@ -48,7 +49,7 @@ public class InterviewTipsActivity extends AppCompatActivity implements AdapterV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interview_tips);
         OptionSpinner= (Spinner) findViewById(R.id.spinner);
-        ArrayAdapter<String>adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,spinnerElements);
+        ArrayAdapter<String>adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,spinnerElements_display);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         OptionSpinner.setAdapter(adapter);
         OptionSpinner.setOnItemSelectedListener(this);
