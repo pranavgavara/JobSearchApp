@@ -4,7 +4,10 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+<<<<<<< HEAD
 
+=======
+>>>>>>> c05e294f00edc7b925a96ea655e604c01b0a58ba
 
     <application
         android:allowBackup="true"

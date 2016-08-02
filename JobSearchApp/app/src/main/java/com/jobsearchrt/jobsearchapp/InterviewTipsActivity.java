@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -12,14 +13,25 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class InterviewTipsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     ListView youTubeList;
     Spinner OptionSpinner;
-    String[] spinnerElements={"java","android","ios","software developer"};
+    String[] spinnerElements={"","java","android","ios","software developer"};
     String searchElement;
+    ArrayList<singleRow> resultsrow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +49,9 @@ public class InterviewTipsActivity extends AppCompatActivity implements AdapterV
 
     public void searchYoutube(View view) {
         youTubeList= (ListView) findViewById(R.id.listView);
-        youTubeList.setAdapter(new TheAdapter(this));
+        resultsrow=new ArrayList<singleRow>();
+        YoutubeListDownloader youtubeListDownloader=new YoutubeListDownloader();
+        youtubeListDownloader.execute(searchElement);
     }
 
     @Override
@@ -52,20 +66,56 @@ public class InterviewTipsActivity extends AppCompatActivity implements AdapterV
 
     }
 
-    public class youtubelistDownloader extends AsyncTask{
+
+    public class YoutubeListDownloader extends AsyncTask<String,Void,ArrayList<singleRow>>{
 
         @Override
-        protected Object doInBackground(Object[] objects) {
-            return null;
+        protected ArrayList<singleRow> doInBackground(String... url) {
+            String apiUrl=url[0];
+            String YoutubeAPIURL="https://www.googleapis.com/youtube/v3/search?part=snippet,id&q=interview tips for "+ apiUrl+"&maxResults=50&type=video&key=AIzaSyBnwD7oP-j38RUdYTQuV0C3rcE4_MHXNac";
+            try {
+                URL youtubeapiURL=new URL(YoutubeAPIURL);
+                BufferedReader br=new BufferedReader(new InputStreamReader(youtubeapiURL.openConnection().getInputStream(),"UTF-8"));
+                StringBuilder stringBuilder=new StringBuilder();
+                String videolines;
+                while ((videolines=br.readLine())!=null){
+                    stringBuilder.append(videolines);
+                }
+                JSONObject youtubeObject=new JSONObject(stringBuilder.toString());
+                JSONArray videoArray=youtubeObject.getJSONArray("items");
+                for(int i=0;i<50;i++){
+                    JSONObject eachVideoobject=videoArray.getJSONObject(i);
+                    String id=eachVideoobject.getJSONObject("id").getString("videoId");
+                    String videoTitle=eachVideoobject.getJSONObject("snippet").getString("title");
+                    String thumbnails=eachVideoobject.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("default").getString("url");
+                    resultsrow.add(new singleRow(thumbnails,videoTitle,id));
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return resultsrow;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<singleRow> singleRows) {
+            super.onPostExecute(singleRows);
+            youTubeList.setAdapter(new TheAdapter(InterviewTipsActivity.this));
         }
     }
-
     class singleRow{
-        int thumbnail;
+        String thumbnail;
         String VideoTitle;
-        singleRow(int img,String title){
+        String videoID;
+        singleRow(String img,String title,String id){
             this.thumbnail=img;
             this.VideoTitle=title;
+            this.videoID=id;
         }
     }
     class TheAdapter extends BaseAdapter{
@@ -73,8 +123,6 @@ public class InterviewTipsActivity extends AppCompatActivity implements AdapterV
         Context context;
         TheAdapter(Context c){
             this.context=c;
-
-
         }
 
         @Override
@@ -94,6 +142,12 @@ public class InterviewTipsActivity extends AppCompatActivity implements AdapterV
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
+            LayoutInflater inflater= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View row=inflater.inflate(R.layout.single_row_youtube_videos,viewGroup,false);
+
+
+
+
             return null;
         }
     }
