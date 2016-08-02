@@ -1,9 +1,9 @@
 package com.jobsearchrt.jobsearchapp;
 
-import android.os.Parcelable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 public class JobdetailsActivity extends AppCompatActivity {
     WebView webView;
@@ -14,6 +14,7 @@ public class JobdetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_jobdetails);
         webView = (WebView) findViewById(R.id.webView);
         Results result = getIntent().getParcelableExtra("result");
+        webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(result.url);
     }
 }
