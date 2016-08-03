@@ -93,20 +93,22 @@ public class FullContactActivity extends AppCompatActivity {
                 if(contacts!=""){
                     companyInfoObject.Address=contacts;
                 }
-                if(contactInfo.getJSONArray("phoneNumbers")!=null) {
-                    JSONArray phoneNumbers = contactInfo.getJSONArray("phoneNumbers");
-                    companyInfoObject.contact=phoneNumbers.getJSONObject(0).getString("number");
-                }
+
                 JSONArray socialArray=queryObject.getJSONArray("socialProfiles");
                 for(int j=0;j<socialArray.length();j++){
                     JSONObject socialProfile=socialArray.getJSONObject(j);
-                        if((socialProfile.getString("typeName").equals("LinkedIn"))){ //|| (socialArray.getJSONObject(j).getString("typeName").equals("CrunchBase"))){
+                    System.out.println("h4"+socialProfile.getString("typeId"));
+                        if((socialProfile.getString("typeId").equals("linkedincompany"))){ //|| (socialArray.getJSONObject(j).getString("typeName").equals("CrunchBase"))){
 //                        System.out.println("h4");
 //                        System.out.println(socialProfile.getString("bio"));
                             companyInfoObject.company=socialProfile.getString("bio");;
                             j=socialArray.length();
                         }
-                    }
+                }
+                if(contactInfo.getJSONArray("phoneNumbers")!=null) {
+                    JSONArray phoneNumbers = contactInfo.getJSONArray("phoneNumbers");
+                    companyInfoObject.contact=phoneNumbers.getJSONObject(0).getString("number");
+                }
 
 
             } catch (Exception e) {
