@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -32,9 +35,11 @@ public class JobsListActivity extends AppCompatActivity implements AdapterView.O
         JoblistAdapter adapter = new JoblistAdapter(this, resultsArray);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
+        registerForContextMenu(listView);
 
 
     }
+
 
 
     @Override
@@ -43,6 +48,36 @@ public class JobsListActivity extends AppCompatActivity implements AdapterView.O
         Intent intent= new Intent(this, JobdetailsActivity.class);
         intent.putExtra("result", result);
         startActivity(intent);
+
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.job_saveshare_menu,menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+        Results saved_result=results.get(info.position);
+        if(item.getItemId()==R.id.Save){
+            Intent intent=new Intent(this,SavedJobsActivity.class);
+            intent.putExtra("saved_result", saved_result);
+            startActivity(intent);
+
+        }else if(item.getItemId()==R.id.Share){
+            Intent intent=new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            String job_title_str=saved_result.jobtitle;
+            String job_company_str=saved_result.company;
+            intent.putExtra(Intent.EXTRA_TEXT,job_title_str);
+            intent.putExtra(Intent.EXTRA_TEXT,job_company_str);
+            Intent chooser=Intent.createChooser(intent,"Share Job");
+            startActivity(chooser);
+        }
+        return super.onContextItemSelected(item);
 
     }
 }

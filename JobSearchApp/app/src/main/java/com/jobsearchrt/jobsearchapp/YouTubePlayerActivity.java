@@ -24,7 +24,7 @@ public class YouTubePlayerActivity extends YouTubeBaseActivity implements YouTub
         setContentView(R.layout.activity_you_tube_player);
         finalvideoTitle= (TextView) findViewById(R.id.videotitlefinal);
         youTubePlayerView= (YouTubePlayerView) findViewById(R.id.youtube_player);
-        singleRow Results=getIntent().getParcelableExtra("result");
+        singleRow Results=getIntent().getParcelableExtra("result_singlerow");
         youTubePlayerView.initialize(API_Key,this);
         finalvideoTitle.setText(Results.VideoTitle);
         Video_ID=Results.videoID;

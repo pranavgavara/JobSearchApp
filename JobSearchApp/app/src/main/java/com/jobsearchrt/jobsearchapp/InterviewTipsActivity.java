@@ -138,9 +138,9 @@ public class InterviewTipsActivity extends AppCompatActivity implements AdapterV
 
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            singleRow result = resultsrow.get(i);
+            singleRow result_singlerow = resultsrow.get(i);
             Intent intent = new Intent(InterviewTipsActivity.this, YouTubePlayerActivity.class);
-            intent.putExtra("result",result);
+            intent.putExtra("result_singlerow",result_singlerow);
             startActivity(intent);
 
         }
