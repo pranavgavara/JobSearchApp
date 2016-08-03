@@ -13,9 +13,9 @@ import java.util.ArrayList;
  * Created by suman on 8/1/2016.
  */
 public class JoblistAdapter extends ArrayAdapter {
-    ArrayList<Results> results;
+    ArrayList<JobResults> results;
     Context context;
-    public JoblistAdapter(Context context, ArrayList<Results> results) {
+    public JoblistAdapter(Context context, ArrayList<JobResults> results) {
         super(context, R.layout.single_row_listofjobs,results);
         this.context=context;
         this.results=results;
@@ -48,10 +48,10 @@ public class JoblistAdapter extends ArrayAdapter {
         else {
             holder= (ResultViewHolder) row.getTag();
         }
-        Results result = results.get(position);
+        JobResults result = results.get(position);
         holder.mytitle.setText(result.jobtitle);
-        holder.mycompany.setText("Company" +result.company);
-        holder.myaddress.setText("Address" +result.city+","+ result.state+", " +result.country);
+        holder.mycompany.setText("Company: " +result.company);
+        holder.myaddress.setText("Address: " +result.city+","+ result.state+", " +result.country);
         holder.mydescription.setText(result.snippet);
         return row;
     }

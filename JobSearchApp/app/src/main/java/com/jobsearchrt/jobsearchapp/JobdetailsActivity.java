@@ -13,7 +13,7 @@ public class JobdetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jobdetails);
         webView = (WebView) findViewById(R.id.webView);
-        Results result = getIntent().getParcelableExtra("result");
+        JobResults result = getIntent().getParcelableExtra("result");
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(result.url);
     }

@@ -17,16 +17,16 @@ import java.util.ArrayList;
 /**
  * Created by suman on 8/1/2016.
  */
-public class Downloader extends AsyncTask<String,Integer,ArrayList> {
+public class JobListDownloader extends AsyncTask<String,Integer,ArrayList> {
     JobsListActivity activity;
-    public  Downloader(JobsListActivity activity){
+    public  JobListDownloader(JobsListActivity activity){
         this.activity=activity;
     }
     @Override
     protected ArrayList doInBackground(String... params) {
 
         String jobURL="http://api.indeed.com/ads/apisearch?publisher=7663037959034577&q="+params[0]+"&v=2&format=json&l="+params[1]+"";
-       ArrayList <Results> resultsArrayList= new ArrayList<Results>();
+       ArrayList <JobResults> resultsArrayList= new ArrayList<JobResults>();
         try {
             URL theUrl = new URL(jobURL);
             BufferedReader reader= new BufferedReader(new InputStreamReader(theUrl.openConnection().getInputStream(),"UTF-8"));
@@ -46,7 +46,7 @@ public class Downloader extends AsyncTask<String,Integer,ArrayList> {
                 String snippet = eachresult.getString("snippet");
                 String url = eachresult.getString("url");
 
-                Results results = new Results(jobtitle,company,city,state,country,source,snippet,url);
+                JobResults results = new JobResults(jobtitle,company,city,state,country,source,snippet,url);
                 resultsArrayList.add(results);
 
             }

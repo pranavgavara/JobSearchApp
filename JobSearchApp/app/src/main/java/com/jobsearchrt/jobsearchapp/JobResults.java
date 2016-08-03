@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by suman on 8/1/2016.
  */
-public class Results implements Parcelable {
+public class JobResults implements Parcelable {
     String jobtitle;
     String company;
     String city;
@@ -16,7 +16,7 @@ public class Results implements Parcelable {
     String country;
     String url;
 
-    public Results( String jobtitle, String company, String city, String state, String source,String country, String snippet, String url) {
+    public JobResults( String jobtitle, String company, String city, String state, String source,String country, String snippet, String url) {
         this.jobtitle = jobtitle;
         this.company = company;
         this.city = city;
@@ -27,7 +27,7 @@ public class Results implements Parcelable {
         this.url = url;
     }
 
-    protected Results(Parcel in) {
+    protected JobResults(Parcel in) {
         jobtitle = in.readString();
         company = in.readString();
         city = in.readString();
@@ -56,15 +56,15 @@ public class Results implements Parcelable {
     }
 
     @SuppressWarnings("unused")
-    public static final Parcelable.Creator<Results> CREATOR = new Parcelable.Creator<Results>() {
+    public static final Parcelable.Creator<JobResults> CREATOR = new Parcelable.Creator<JobResults>() {
         @Override
-        public Results createFromParcel(Parcel in) {
-            return new Results(in);
+        public JobResults createFromParcel(Parcel in) {
+            return new JobResults(in);
         }
 
         @Override
-        public Results[] newArray(int size) {
-            return new Results[size];
+        public JobResults[] newArray(int size) {
+            return new JobResults[size];
         }
     };
 }
