@@ -46,7 +46,7 @@ public class JobListDownloader extends AsyncTask<String,Integer,ArrayList> {
                 String snippet = eachresult.getString("snippet");
                 String url = eachresult.getString("url");
 
-                JobResults results = new JobResults(jobtitle,company,city,state,country,source,snippet,url);
+                JobResults results = new JobResults(jobtitle,company,city,state,source,country,snippet,url);
                 resultsArrayList.add(results);
 
             }
