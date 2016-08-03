@@ -100,18 +100,20 @@ public class FullContactActivity extends AppCompatActivity {
                 JSONArray socialArray=queryObject.getJSONArray("socialProfiles");
                 for(int j=0;j<socialArray.length();j++){
                     JSONObject socialProfile=socialArray.getJSONObject(j);
-                    if((socialProfile.getString("typeName").equals("LinkedIn"))){ //|| (socialArray.getJSONObject(j).getString("typeName").equals("CrunchBase"))){
-                        System.out.println("h4");
-                        System.out.println(socialProfile.getString("bio"));
-                        companyInfoObject.company=socialProfile.getString("bio");
-                        break;
+                        if((socialProfile.getString("typeName").equals("LinkedIn"))){ //|| (socialArray.getJSONObject(j).getString("typeName").equals("CrunchBase"))){
+//                        System.out.println("h4");
+//                        System.out.println(socialProfile.getString("bio"));
+                            companyInfoObject.company=socialProfile.getString("bio");;
+                            j=socialArray.length();
+                        }
                     }
-                }
+
 
             } catch (Exception e) {
                 Log.e("Error", e.getMessage());
                 e.printStackTrace();
             }
+
             return companyInfoObject;
         }
 
