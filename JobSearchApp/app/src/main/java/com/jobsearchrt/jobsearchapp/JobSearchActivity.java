@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -34,7 +35,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class JobSearchActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class JobSearchActivity extends CustomMenuActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
     EditText searchTerm, zipcode;
     GoogleApiClient mGoogleApi;
     LocationRequest mlocationRequest;
@@ -49,15 +50,6 @@ public class JobSearchActivity extends AppCompatActivity implements GoogleApiCli
 
 
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-//        return super.onOptionsItemSelected(item);
-
-
 
     public void search(View view) {
         Intent intent =new Intent(this, JobsListActivity.class);
@@ -124,26 +116,7 @@ public class JobSearchActivity extends AppCompatActivity implements GoogleApiCli
         }
 
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id=item.getItemId();
-        switch(id){
-            case R.id.FullContact:
-                Intent ContactIntent=new Intent(this,FullContactActivity.class);
-                startActivity(ContactIntent);
-                break;
-            case R.id.savedJobs:
-                Intent SavedJobsIntent=new Intent(this,SavedJobsActivity.class);
-                startActivity(SavedJobsIntent);
-                break;
-            case R.id.youtubeTips:
-                Intent YoutubeIntent=new Intent(this,InterviewTipsActivity.class);
-                startActivity(YoutubeIntent);
-                break;
 
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }
 
 

@@ -22,7 +22,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JobsListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class JobsListActivity extends CustomMenuActivity implements AdapterView.OnItemClickListener {
     ListView listView;
     ArrayList<JobResults> results;
     JobResults saved_result;
@@ -47,19 +47,13 @@ public class JobsListActivity extends AppCompatActivity implements AdapterView.O
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
         registerForContextMenu(listView);
-
-
     }
-
-
-
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
         JobResults result = results.get(position);
         Intent intent= new Intent(this, JobdetailsActivity.class);
         intent.putExtra("result", result);
         startActivity(intent);
-
     }
 
     @Override

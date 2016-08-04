@@ -2,10 +2,11 @@ package com.jobsearchrt.jobsearchapp;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class JobdetailsActivity extends AppCompatActivity {
+public class JobdetailsActivity extends CustomMenuActivity {
     WebView webView;
 
     @Override
@@ -16,5 +17,9 @@ public class JobdetailsActivity extends AppCompatActivity {
         JobResults result = getIntent().getParcelableExtra("result");
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(result.url);
+    }
+
+    public void applyToJob(View view) {
+
     }
 }

@@ -21,7 +21,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SavedJobsActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class SavedJobsActivity extends CustomMenuActivity implements AdapterView.OnItemClickListener {
     ArrayList<JobResults> savedjoblist;
     ListView savedjobsListView;
     JobResults savedResults;

@@ -33,7 +33,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class InterviewTipsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class InterviewTipsActivity extends CustomMenuActivity implements AdapterView.OnItemSelectedListener {
 
     ListView youTubeList;
     Spinner OptionSpinner;

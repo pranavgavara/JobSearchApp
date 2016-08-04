@@ -6,6 +6,22 @@
     android:orientation="vertical"
        tools:context="com.jobsearchrt.jobsearchapp.JobdetailsActivity">
 
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click to Apply"
+        android:id="@+id/toggleButton"
+        android:layout_gravity="center_horizontal"
+        android:onClick="applyToJob"
+        android:checked="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Press Button to Apply"
+        android:id="@+id/textView2"
+        android:layout_gravity="center_horizontal" />
+
     <WebView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
