@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +35,7 @@ public class SavedJobsActivity extends CustomMenuActivity implements AdapterView
         setContentView(R.layout.activity_saved_jobs);
         savedjobsListView= (ListView) findViewById(R.id.savedjobslistview);
         savedjoblist=new ArrayList<JobResults>();
-        if(checkDataBase()){
+        if(validateDB()){
             getfromDB();
         }
         JoblistAdapter savedjobs_adapter = new JoblistAdapter(this, savedjoblist);
@@ -94,6 +96,18 @@ public class SavedJobsActivity extends CustomMenuActivity implements AdapterView
             // database doesn't exist yet.
         }
         return checkDB != null;
+    }
+    private boolean validateDB(){
+        File database=getApplicationContext().getDatabasePath("JobDB.db");
+
+        if (!database.exists()) {
+            // Database does not exist so copy it from assets here
+            Log.i("Databaseee", "Not Found");
+            return false;
+        } else {
+            Log.i("Databaseee", "Found");
+            return true;
+        }
     }
 }
 

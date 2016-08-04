@@ -5,9 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.CheckBox;
 
 public class JobdetailsActivity extends CustomMenuActivity {
     WebView webView;
+    CheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +21,4 @@ public class JobdetailsActivity extends CustomMenuActivity {
         webView.loadUrl(result.url);
     }
 
-    public void applyToJob(View view) {
-
-    }
 }
