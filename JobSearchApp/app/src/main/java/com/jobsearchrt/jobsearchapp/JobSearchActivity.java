@@ -15,8 +15,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -32,6 +30,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class JobSearchActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+
     EditText searchTerm, zipcode;
     GoogleApiClient mGoogleApi;
     LocationRequest mlocationRequest;
@@ -45,21 +44,13 @@ public class JobSearchActivity extends AppCompatActivity implements GoogleApiCli
         searchTerm = (EditText) findViewById(R.id.searchTerm);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-//        return super.onOptionsItemSelected(item);
-
-
-
     public void search(View view) {
-        Intent intent =new Intent(this, JobsListActivity.class);
-        intent.putExtra("searchTerm",searchTerm.getText().toString());
-        intent.putExtra("zipcode",zipcode.getText().toString());
+        Intent intent = new Intent(this, JobsListActivity.class);
+        intent.putExtra("searchTerm", searchTerm.getText().toString());
+        intent.putExtra("zipcode", zipcode.getText().toString());
         startActivity(intent);
     }
+
     public void getCurrentLocation(View view) {
 
         mGoogleApi = new GoogleApiClient.Builder(this)
@@ -69,9 +60,9 @@ public class JobSearchActivity extends AppCompatActivity implements GoogleApiCli
                 .build();
         mGoogleApi.connect();
         LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
-        if(!lm.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+        if (!lm.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
                 !lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-           AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Location Services Not Active");
             builder.setMessage("Please enable Location Services and GPS");
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -133,27 +124,9 @@ public class JobSearchActivity extends AppCompatActivity implements GoogleApiCli
         }
 
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id=item.getItemId();
-        switch(id){
-            case R.id.FullContact:
-                Intent ContactIntent=new Intent(this,FullContactActivity.class);
-                startActivity(ContactIntent);
-                break;
-            case R.id.savedJobs:
-                Intent SavedJobsIntent=new Intent(this,SavedJobsActivity.class);
-                startActivity(SavedJobsIntent);
-                break;
-            case R.id.youtubeTips:
-                Intent YoutubeIntent=new Intent(this,InterviewTipsActivity.class);
-                startActivity(YoutubeIntent);
-                break;
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }
+
+
 
 
 

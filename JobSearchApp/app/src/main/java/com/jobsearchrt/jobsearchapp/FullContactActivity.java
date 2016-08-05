@@ -19,7 +19,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-public class FullContactActivity extends AppCompatActivity {
+public class FullContactActivity extends CustomMenuActivity {
     String url = "https://api.fullcontact.com/v2/company/lookup.json?domain=";
     String api_key = "&apiKey=ba5d7e2d4f109058";
     TextView companyName,companyAddress,contactInfo,companyInfo;

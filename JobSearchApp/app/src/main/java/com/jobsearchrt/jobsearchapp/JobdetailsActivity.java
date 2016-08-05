@@ -2,11 +2,14 @@ package com.jobsearchrt.jobsearchapp;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.CheckBox;
 
-public class JobdetailsActivity extends AppCompatActivity {
+public class JobdetailsActivity extends CustomMenuActivity {
     WebView webView;
+    CheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,4 +20,5 @@ public class JobdetailsActivity extends AppCompatActivity {
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(result.url);
     }
+
 }
