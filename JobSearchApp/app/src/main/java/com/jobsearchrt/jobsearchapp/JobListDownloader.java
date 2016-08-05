@@ -24,7 +24,7 @@ public class JobListDownloader extends AsyncTask<String,Integer,ArrayList> {
     }
     @Override
     protected ArrayList doInBackground(String... params) {
-
+        params[0]=params[0].replaceAll("\\s+","%20");
         String jobURL="http://api.indeed.com/ads/apisearch?publisher=7663037959034577&q="+params[0]+"&v=2&format=json&l="+params[1]+"";
        ArrayList <JobResults> resultsArrayList= new ArrayList<JobResults>();
         try {
