@@ -25,7 +25,7 @@ public class JobListDownloader extends AsyncTask<String,Integer,ArrayList> {
     @Override
     protected ArrayList doInBackground(String... params) {
 
-        String jobURL="http://api.indeed.com/ads/apisearch?publisher=7663037959034577&q="+params[0]+"&v=2&format=json&l="+params[1]+"";
+        String jobURL="http://api.indeed.com/ads/apisearch?publisher=7663037959034577&q="+params[0]+"&v=2&format=json&l="+params[1]+"&limit=25";
        ArrayList <JobResults> resultsArrayList= new ArrayList<JobResults>();
         try {
             URL theUrl = new URL(jobURL);
