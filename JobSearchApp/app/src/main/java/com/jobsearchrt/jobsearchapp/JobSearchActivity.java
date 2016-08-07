@@ -29,7 +29,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class JobSearchActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class JobSearchActivity extends CustomMenuActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     EditText searchTerm, zipcode;
     GoogleApiClient mGoogleApi;

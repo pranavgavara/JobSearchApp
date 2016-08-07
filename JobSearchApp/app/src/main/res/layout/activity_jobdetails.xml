@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:text="Applied"
         android:id="@+id/checkBox"
+        android:onClick="jobApplied"
         android:layout_gravity="center_horizontal" />
 
     <TextView

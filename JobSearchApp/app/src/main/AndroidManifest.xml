@@ -27,7 +27,14 @@
         <activity android:name=".JobsListActivity" />
         <activity android:name=".JobdetailsActivity" />
         <activity android:name=".YouTubePlayerActivity" />
-        <activity android:name=".CustomMenuActivity"></activity>
+        <activity android:name=".CustomMenuActivity" />
+        <provider
+            android:name=".MyContentProvider"
+            android:authorities="com.pranav.jobDB"
+            android:enabled="true"
+            android:exported="true"></provider>
+
+
     </application>
 
 </manifest>

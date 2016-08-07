@@ -14,6 +14,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import retrofit.http.HEAD;
+
 /**
  * Created by suman on 8/1/2016.
  */
@@ -24,13 +26,11 @@ public class JobListDownloader extends AsyncTask<String,Integer,ArrayList> {
     }
     @Override
     protected ArrayList doInBackground(String... params) {
-<<<<<<< HEAD
         params[0]=params[0].replaceAll("\\s+","%20");
         String jobURL="http://api.indeed.com/ads/apisearch?publisher=7663037959034577&q="+params[0]+"&v=2&format=json&l="+params[1]+"";
-=======
 
-        String jobURL="http://api.indeed.com/ads/apisearch?publisher=7663037959034577&q="+params[0]+"&v=2&format=json&l="+params[1]+"&limit=25";
->>>>>>> 207a34e88490891912221d78ae61a9af929d8638
+//        String jobURL="http://api.indeed.com/ads/apisearch?publisher=7663037959034577&q="+params[0]+"&v=2&format=json&l="+params[1]+"&limit=25";
+
        ArrayList <JobResults> resultsArrayList= new ArrayList<JobResults>();
         try {
             URL theUrl = new URL(jobURL);

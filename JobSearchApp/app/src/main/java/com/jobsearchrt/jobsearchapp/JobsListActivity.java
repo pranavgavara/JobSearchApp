@@ -73,21 +73,9 @@ public class JobsListActivity extends CustomMenuActivity implements AdapterView.
 
     }
     public void putInDB(JobResults jobResult){
-        SQLiteDatabase db=openOrCreateDatabase("JobDB",MODE_PRIVATE,null);
-        String table_name="SavedJobs";
-        String query1="Create table if not exists "+table_name+" (JobTitle TEXT,Company TEXT,City TEXT,State TEXT,Source TEXT,Snippet TEXT,Country TEXT,Url TEXT)";
-        db.execSQL(query1);
-        ContentValues values = new ContentValues();
-        values.put("JobTitle",jobResult.jobtitle );
-        values.put("Company", jobResult.company);
-        values.put("City", jobResult.city);
-        values.put("State", jobResult.state);
-        values.put("Source", jobResult.source);
-        values.put("Snippet", jobResult.snippet);
-        values.put("Country", jobResult.country);
-        values.put("Url", jobResult.url);
-        db.insert(table_name, null, values);
-        db.close();
+
+        SQLDatabaseAdapter sqlDatabaseAdapter=new SQLDatabaseAdapter(this);
+        sqlDatabaseAdapter.insertData(jobResult);
     }
 
 }
