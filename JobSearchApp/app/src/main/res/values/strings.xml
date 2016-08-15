@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">JobSearchApp</string>
+    <string name="drawer_opened">drawer_opened</string>
+    <string name="drawer_closed">drawer_closed</string>
+    <string-array name="NavigationMenu">
+        <item>Job Search</item>
+        <item>Full Contact</item>
+        <item>Saved Jobs</item>
+        <item>Interview Tips</item>
+    </string-array>
 </resources>

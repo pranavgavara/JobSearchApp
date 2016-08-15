@@ -36,7 +36,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class JobSearchActivity extends CustomMenuActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class JobSearchActivity extends NavigationDrawer implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     EditText searchTerm, zipcode;
     GoogleApiClient mGoogleApi;
@@ -46,7 +46,11 @@ public class JobSearchActivity extends CustomMenuActivity implements GoogleApiCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_job_search);
+//        setContentView(R.layout.activity_job_search);
+        getLayoutInflater().inflate(R.layout.activity_job_search, frameLayout);
+        NaviView.setItemChecked(position, true);
+        setTitle(menuItems[position]);
+
         zipcode = (EditText) findViewById(R.id.zipcode);
         searchTerm = (EditText) findViewById(R.id.searchTerm);
         if (mGoogleApi == null) {

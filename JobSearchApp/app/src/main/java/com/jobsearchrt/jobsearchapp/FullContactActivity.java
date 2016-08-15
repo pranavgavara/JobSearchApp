@@ -19,7 +19,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-public class FullContactActivity extends CustomMenuActivity {
+public class FullContactActivity extends NavigationDrawer {
     String url = "https://api.fullcontact.com/v2/company/lookup.json?domain=";
     String api_key = "&apiKey=ba5d7e2d4f109058";
     TextView companyName,companyAddress,contactInfo,companyInfo;
@@ -34,7 +34,10 @@ public class FullContactActivity extends CustomMenuActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_full_contact);
+//        setContentView(R.layout.activity_full_contact);
+        getLayoutInflater().inflate(R.layout.activity_full_contact, frameLayout);
+        NaviView.setItemChecked(position, true);
+        setTitle(menuItems[position]);
         companyName = (TextView) findViewById(R.id.companyName);
         companyAddress = (TextView)findViewById(R.id.companyPlace);
         contactInfo = (TextView) findViewById(R.id.contactInfo);

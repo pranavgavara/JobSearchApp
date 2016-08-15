@@ -33,7 +33,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class InterviewTipsActivity extends CustomMenuActivity implements AdapterView.OnItemSelectedListener {
+public class InterviewTipsActivity extends NavigationDrawer implements AdapterView.OnItemSelectedListener {
 
     ListView youTubeList;
     Spinner OptionSpinner;
@@ -47,7 +47,10 @@ public class InterviewTipsActivity extends CustomMenuActivity implements Adapter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_interview_tips);
+//        setContentView(R.layout.activity_interview_tips);
+        getLayoutInflater().inflate(R.layout.activity_interview_tips, frameLayout);
+        NaviView.setItemChecked(position, true);
+        setTitle(menuItems[position]);
         OptionSpinner= (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<String>adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,spinnerElements_display);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

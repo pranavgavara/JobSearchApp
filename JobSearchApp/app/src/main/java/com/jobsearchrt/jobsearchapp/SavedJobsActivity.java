@@ -23,7 +23,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SavedJobsActivity extends CustomMenuActivity implements AdapterView.OnItemClickListener {
+public class SavedJobsActivity extends NavigationDrawer implements AdapterView.OnItemClickListener {
     ArrayList<JobResults> savedjoblist;
     ListView savedjobsListView;
     JobResults savedResults;
@@ -32,13 +32,15 @@ public class SavedJobsActivity extends CustomMenuActivity implements AdapterView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_saved_jobs);
+//        setContentView(R.layout.activity_saved_jobs);
+        getLayoutInflater().inflate(R.layout.activity_saved_jobs, frameLayout);
+        NaviView.setItemChecked(position, true);
+        setTitle(menuItems[position]);
         savedjobsListView= (ListView) findViewById(R.id.savedjobslistview);
         savedjoblist=new ArrayList<JobResults>();
         Cursor cursor = getContentResolver().query(MyContentProvider.CONTENT_URI, null, null, null, null);
 
-//        SQLDatabaseAdapter sqlDatabaseAdapter=new SQLDatabaseAdapter(this);
-//        savedjoblist=sqlDatabaseAdapter.fetchAllResults();
+
         while(cursor.moveToNext()) {
 
             int indexTitle = cursor.getColumnIndex("sJobTitle");

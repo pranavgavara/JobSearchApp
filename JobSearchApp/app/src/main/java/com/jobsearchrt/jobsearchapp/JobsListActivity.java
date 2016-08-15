@@ -11,10 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class JobsListActivity extends CustomMenuActivity implements AdapterView.OnItemClickListener {
+public class JobsListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     ListView listView;
     ArrayList<JobResults> results;
     JobResults saved_result;
@@ -25,6 +26,9 @@ public class JobsListActivity extends CustomMenuActivity implements AdapterView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jobs_list);
+//        getLayoutInflater().inflate(R.layout.activity_jobs_list, frameLayout);
+//        NaviView.setItemChecked(position, true);
+//        setTitle(menuItems[position]);
         listView = (ListView) findViewById(R.id.listView);
         String searchTerm = getIntent().getStringExtra("searchTerm");
         String zipcode = getIntent().getStringExtra("zipcode");
@@ -72,10 +76,14 @@ public class JobsListActivity extends CustomMenuActivity implements AdapterView.
         return super.onContextItemSelected(item);
 
     }
-    public void putInDB(JobResults jobResult){
+    public void putInDB(JobResults jobResult) {
 
-        SQLDatabaseAdapter sqlDatabaseAdapter=new SQLDatabaseAdapter(this);
-        sqlDatabaseAdapter.insertData(jobResult);
+        SQLDatabaseAdapter sqlDatabaseAdapter = new SQLDatabaseAdapter(this);
+        if (sqlDatabaseAdapter.getResultUrl(jobResult.snippet)) {
+            Toast.makeText(JobsListActivity.this, "Job already saved", Toast.LENGTH_SHORT).show();
+        } else {
+            sqlDatabaseAdapter.insertData(jobResult);
+        }
     }
 
 }
